@@ -164,9 +164,6 @@ public class Passenger {
 import javax.swing.*;
 import javax.swing.text.*;
 import java.io.*;
-import java.util.ArrayList;
-
-
 public class ManageScreen extends JPanel {
     private JComboBox<String> survivedComboBox;
     private JComboBox<Integer> survivedComboBox2;
@@ -183,6 +180,7 @@ public class ManageScreen extends JPanel {
     private static JLabel filterLabel=new JLabel();
     private static JLabel statisticsLabel=new JLabel();
     private static String selectedClass="";
+    private static String selectedNumber=("");
     private static String selectedName=("");
     private static String selectedGender="";
     private static String selectedSib=("");
@@ -208,7 +206,7 @@ public class ManageScreen extends JPanel {
     }
 
     public ManageScreen(int x, int y, int width, int height) {
-        File file = new File(Constants.PATH_TO_DATA_FILE); //this is the path to the data file
+        File file = new File(Constants.PATH_TO_DATA_FILE);
         if (file.exists()) {
             this.setLayout(null);
             this.setBounds(x, y + Constants.MARGIN_FROM_TOP, width, height);
@@ -220,7 +218,6 @@ public class ManageScreen extends JPanel {
             this.add(this.survivedComboBox);
 
             this.survivedComboBox.addActionListener((e) -> {
-
                 String num=(String) this.survivedComboBox.getSelectedItem();
                 assert num != null;
                 if(num.startsWith("1")){
@@ -240,8 +237,6 @@ public class ManageScreen extends JPanel {
                 }
 
             });
-
-
 
             JLabel survivedLabel2 = new JLabel("Passenger ID: ");
             survivedLabel2.setBounds(survivedComboBox.getX() + survivedComboBox.getWidth() + Constants.gap * 8, y, Constants.LABEL_WIDTH, Constants.LABEL_HEIGHT);
@@ -269,22 +264,8 @@ public class ManageScreen extends JPanel {
             ((AbstractDocument) editor1.getDocument()).setDocumentFilter(filter1);
 
             this.survivedComboBox2.addActionListener(e -> {
-                String IDNumber = (String) this.survivedComboBox2.getEditor().getItem();
-                int num;
-                if(IDNumber.matches("[^0-9],{3}")) {
-                    num = Integer.parseInt(IDNumber);
-                    Passenger[] passengersByArray=Test.getPassengers().toArray(new Passenger[0]);
-                    for(int i=0;i<passengersByArray.length-num;i++){
-                        ArrayList<Passenger> basedOnID=new ArrayList<>();
-
-                    }
-                }else {
-                    IDNumber=null;
-                }
-                //System.out.println(IDNumber);
+                selectedNumber=(String) this.survivedComboBox2.getSelectedItem();
             });
-
-
             JLabel survivedLabel3 = new JLabel("Passenger Name: ");
             survivedLabel3.setBounds(x + Constants.MARGIN_FROM_LEFT, survivedComboBox.getY() + survivedComboBox.getHeight() + Constants.gap * 3, Constants.LABEL_WIDTH, Constants.LABEL_HEIGHT);
             this.add(survivedLabel3);
@@ -293,25 +274,9 @@ public class ManageScreen extends JPanel {
             this.survivedComboBox3.setEditable(true);
             this.add(survivedComboBox3);
 
-          /*  JTextComponent editor2=(JTextComponent)PassengerNameComboBox.getEditor().getEditorComponent();
-            DocumentFilter filter2=new DocumentFilter(){
-                public void insertString(FilterBypass filterBypass,int offset,String string,AttributeSet attributeSet)throws BadLocationException{
-                    if((filterBypass.getDocument().getLength()+string.length())<=3){
-                        super.insertString(filterBypass,offset,string,attributeSet);
-                    }
-                }
-                public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
-                    if ((fb.getDocument().getLength() - length + text.length()) <= 3) {
-                        super.replace(fb, offset, length, text, attrs);
-                    }
-                }
-            };
-            ((AbstractDocument)editor2.getDocument()).setDocumentFilter(filter2);*/
-
             this.survivedComboBox3.addActionListener(e -> {
-                String passengerName = (String) this.survivedComboBox3.getEditor().getItem();
-                selectedName=passengerName;
-                System.out.println("name "+passengerName);
+                selectedName=(String) this.survivedComboBox3.getEditor().getItem();
+                //System.out.println("name "+passengerName);
             });
 
             JLabel survivedLabel4 = new JLabel("Passenger Sex: ");
@@ -323,7 +288,7 @@ public class ManageScreen extends JPanel {
 
             this.survivedComboBox4.addActionListener(e -> {
                 selectedGender = (String) survivedComboBox4.getSelectedItem();
-                System.out.println(selectedGender);
+                //System.out.println(selectedGender);
             });
 
 
@@ -353,7 +318,7 @@ public class ManageScreen extends JPanel {
 
             this.survivedComboBox5.addActionListener(e -> {
                 selectedSib = (String) this.survivedComboBox5.getSelectedItem();
-                System.out.println(selectedSib);
+                //System.out.println(selectedSib);
             });
 
             JLabel survivedLabel6 = new JLabel("Passenger Parch: ");
@@ -382,7 +347,7 @@ public class ManageScreen extends JPanel {
 
             this.survivedComboBox6.addActionListener(e -> {
                 selectedParch = (String) this.survivedComboBox6.getSelectedItem();
-                System.out.println(selectedParch);
+                //System.out.println(selectedParch);
             });
 
 
@@ -411,7 +376,7 @@ public class ManageScreen extends JPanel {
             ((AbstractDocument) editor5.getDocument()).setDocumentFilter(filter5);
             this.survivedComboBox7.addActionListener(e -> {
                 selectedTicket = (String) this.survivedComboBox7.getSelectedItem();
-                System.out.println(selectedTicket);
+                //System.out.println(selectedTicket);
             });
 
             JLabel survivedLabel8 = new JLabel("Passenger Fare");
@@ -438,7 +403,7 @@ public class ManageScreen extends JPanel {
             ((AbstractDocument) editor6.getDocument()).setDocumentFilter(filter6);
             this.survivedComboBox8.addActionListener(e -> {
                 selectedFare = (String) this.survivedComboBox8.getSelectedItem();
-                System.out.println(selectedFare);
+                //System.out.println(selectedFare);
             });
 
             JLabel survivedLabel9 = new JLabel("Passenger Cabin");
@@ -465,7 +430,7 @@ public class ManageScreen extends JPanel {
             ((AbstractDocument) editor7.getDocument()).setDocumentFilter(filter7);
             this.survivedComboBox9.addActionListener(e -> {
                 selectedCabin = (String) this.survivedComboBox9.getSelectedItem();
-                System.out.println(selectedCabin);
+                //System.out.println(selectedCabin);
             });
 
             JLabel survivedLabel10 = new JLabel("Passenger Embarked: ");
@@ -476,7 +441,7 @@ public class ManageScreen extends JPanel {
             this.add(survivedComboBox10);
             this.survivedComboBox10.addActionListener(e -> {
                 selectedEmbarked = (String) survivedComboBox10.getSelectedItem();
-                System.out.println(selectedEmbarked);
+                //System.out.println(selectedEmbarked);
             });
 
             filterLabel.setBounds((Constants.WINDOW_WIDTH/2)-100, survivedLabel10.getY()+survivedLabel10.getHeight()+20,400,30);
@@ -484,6 +449,8 @@ public class ManageScreen extends JPanel {
             filterButton.setBounds(survivedLabel9.getX()+Constants.gap*3,survivedLabel9.getY()+survivedLabel9.getHeight()+Constants.gap*5,Constants.BUTTON_WIDTH,Constants.BUTTON_HEIGHT);
             this.add(filterButton);
             filterButton.addActionListener(e -> {
+                int count=0;
+
                 for(Passenger passenger:Test.getPassengers()){
                     boolean matchClass=selectedClass.equals("")|| selectedClass.equals(passenger.getPclass());
                     boolean matchName=selectedName.equals("")||selectedName.equals(passenger.getName());
@@ -505,6 +472,10 @@ public class ManageScreen extends JPanel {
                         }
 
                     }
+                    count++;
+                    if(!selectedNumber.equals("") && count==Integer.parseInt(selectedNumber)){
+                        break;
+                    }
                 }
                 System.out.println("Total Rows: "+totalRows+"("+survived+" survived, "+deceased+" did not)");// צריך להופיע בחלון
                 String string=new String("Total Rows: "+totalRows+"("+survived+" survived, "+deceased+" did not)");
@@ -523,7 +494,9 @@ public class ManageScreen extends JPanel {
             statisticsButton.addActionListener(e -> {
                 boolean areRelatives=false;
                 int survivedFromClass=0; int overAllFromClass=0;
-                int survivedFromGender=0; int overAllFromGender=0;
+                //int survivedFromGender=0; int overAllFromGender=0;
+                int survivedFromGenderA=0; int overAllFromGenderA=0;
+                int survivedFromGenderB=0; int overAllFromGenderB=0;
                 int relativesAre=0; int relativesNone=0;
                 int survivedFromPortC=0; int overAllFromPortC=0;
                 int survivedFromPortQ=0; int overAllFromPortQ=0;
@@ -546,68 +519,103 @@ public class ManageScreen extends JPanel {
                         }
                         overAllFromClass++;
 
-                        if (selectedGender.equals("") || selectedGender.equals(passenger.getSex())) {
+                        /*if (selectedGender.equals("") || selectedGender.equals(passenger.getSex())) {
                             if (passenger.getSurvived().equals("1")) {
                                 survivedFromGender++;
                             }
                             overAllFromGender++;
+                        }*/
+
+
+                        if(passenger.getSex().equals("male")&& passenger.getSurvived().equals("1")){
+                            survivedFromGenderA++;
                         }
-                        if (getAgeGroup(passenger.getAge()).equals("0-10")) {
+                        if(passenger.getSex().equals("male")){
+                            overAllFromGenderA++;
+                        }
+                        if(passenger.getSex().equals("female") && passenger.getSurvived().equals("1")){
+                            survivedFromGenderB++;
+                        }
+                        if(passenger.getSex().equals("female")){
+                            overAllFromGenderB++;
+                        }
+
+                        if (getAgeGroup(passenger.getAge()).equals("0-10")&& passenger.getSurvived().equals("1")) {
                             survivedFromAgeGroup1++;
-                            overAllFromAgeGroup1++;
-                        } else {
+                        }
+                        if(getAgeGroup(passenger.getAge()).equals("0-10")){
                             overAllFromAgeGroup1++;
                         }
-                        if (getAgeGroup(passenger.getAge()).equals("11-20")) {
+                        if (getAgeGroup(passenger.getAge()).equals("11-20")&& passenger.getSurvived().equals("1")) {
                             survivedFromAgeGroup2++;
-                            overAllFromAgeGroup2++;
-                        } else {
+                        }
+                        if(getAgeGroup(passenger.getAge()).equals("11-20")){
                             overAllFromAgeGroup2++;
                         }
-                        if (getAgeGroup(passenger.getAge()).equals("21-30")) {
+                        if (getAgeGroup(passenger.getAge()).equals("21-30")&& passenger.getSurvived().equals("1")) {
                             survivedFromAgeGroup3++;
-                            overAllFromAgeGroup3++;
-                        } else {
+                        }
+                        if(getAgeGroup(passenger.getAge()).equals("21-30")){
                             overAllFromAgeGroup3++;
                         }
-                        if (getAgeGroup(passenger.getAge()).equals("31-40")) {
+                        if (getAgeGroup(passenger.getAge()).equals("31-40")&& passenger.getSurvived().equals("1")) {
                             survivedFromAgeGroup4++;
-                            overAllFromAgeGroup4++;
-                        } else {
+                        }
+                        if(getAgeGroup(passenger.getAge()).equals("31-40")){
                             overAllFromAgeGroup4++;
                         }
-                        if (getAgeGroup(passenger.getAge()).equals("41-50")) {
+                        if (getAgeGroup(passenger.getAge()).equals("41-50")&& passenger.getSurvived().equals("1")) {
                             survivedFromAgeGroup5++;
-                            overAllFromAgeGroup5++;
-                        } else {
+                        }
+                        if(getAgeGroup(passenger.getAge()).equals("41-50")){
                             overAllFromAgeGroup5++;
                         }
-                        if (getAgeGroup(passenger.getAge()).equals("51+")) {
+                        if (getAgeGroup(passenger.getAge()).equals("51+")&& passenger.getSurvived().equals("1")) {
                             survivedFromAgeGroup6++;
-                            overAllFromAgeGroup6++;
-                        } else {
+                        }
+                        if(getAgeGroup(passenger.getAge()).equals("51+")){
                             overAllFromAgeGroup6++;
                         }
 
-                        if(passenger.getEmbarked().equals("C")){
+                        if(passenger.getEmbarked().equals("C") && passenger.getSurvived().equals("1")){
                             survivedFromPortC++;
+                        }
+                        if(passenger.getEmbarked().equals("C")){
                             overAllFromPortC++;
-                        }else {
-                            overAllFromPortC++;
+                        }
+
+                        if(passenger.getEmbarked().equals("Q")&& passenger.getSurvived().equals("1")){
+                            survivedFromPortQ++;
                         }
                         if(passenger.getEmbarked().equals("Q")){
-                            survivedFromPortQ++;
-                            overAllFromPortQ++;
-                        }else {
                             overAllFromPortQ++;
                         }
-                        if(passenger.getEmbarked().equals("S")){
+
+                        if(passenger.getEmbarked().equals("S")&& passenger.getSurvived().equals("1")){
                             survivedFromPortS++;
-                            overAllFromPortS++;
-                        }else {
+                        }
+                        if(passenger.getEmbarked().equals("S")){
                             overAllFromPortS++;
                         }
 
+                        if(getByPounds(passenger.getFare()).equals("0-9")&& passenger.getSurvived().equals("1")){
+                            survivedByPounds1++;
+                        }
+                        if(getByPounds(passenger.getFare()).equals("0-9")){
+                            overAllByPounds1++;
+                        }
+                        if(getByPounds(passenger.getFare()).equals("11-30")&& passenger.getSurvived().equals("1")){
+                            survivedByPounds2++;
+                        }
+                        if(getByPounds(passenger.getFare()).equals("11-30")){
+                            overAllByPounds2++;
+                        }
+                        if(getByPounds(passenger.getFare()).equals("30+")&& passenger.getSurvived().equals("1")){
+                            survivedByPounds3++;
+                        }
+                        if(getByPounds(passenger.getFare()).equals("30+")){
+                            overAllByPounds3++;
+                        }
 
                         int sum = Integer.parseInt(passenger.getSibSP()) + Integer.parseInt(passenger.getParch());
                         String sumOfRelatives = Integer.toString(sum);
@@ -615,32 +623,15 @@ public class ManageScreen extends JPanel {
                         if (sum >= 1) {
                             areRelatives = true;
                         }
-                        
 
 
 
-                        if(getByPounds(passenger.getFare()).equals("0-9")){
-                            survivedByPounds1++;
-                            overAllByPounds1++;
-                        }else {
-                            overAllByPounds1++;
-                        }
-                        if(getByPounds(passenger.getFare()).equals("11-30")){
-                            survivedByPounds2++;
-                            overAllByPounds2++;
-                        }else {
-                            overAllByPounds2++;
-                        }
-                        if(getByPounds(passenger.getFare()).equals("30+")){
-                            survivedByPounds3++;
-                            overAllByPounds3++;
-                        }else {
-                            overAllByPounds3++;
-                        }
 
 
                         double survivorsFromClass = (survivedFromClass / overAllFromClass) * 100;
-                        double survivorsFromGender = (survivedFromGender / overAllFromGender) * 100;
+                        //double survivorsFromGender = (survivedFromGender / overAllFromGender) * 100;
+                        double survivorsFromGenderA=(survivedFromGenderA/overAllFromGenderA)*100;
+                        double survivorsFromGenderB=(survivedFromGenderB/overAllFromGenderB)*100;
                         double survivorsFromAgeGroup1 = (survivedFromAgeGroup1 / overAllFromAgeGroup1) * 100;
                         double survivorsFromAgeGroup2 = (survivedFromAgeGroup2 / overAllFromAgeGroup2) * 100;
                         double survivorsFromAgeGroup3 = (survivedFromAgeGroup3 / overAllFromAgeGroup3) * 100;
@@ -653,6 +644,25 @@ public class ManageScreen extends JPanel {
                         double survivorsByPounds1=(survivedByPounds1/overAllByPounds1)*100;
                         double survivorsByPounds2=(survivedByPounds2/overAllByPounds2)*100;
                         double survivorsByPounds3=(survivedByPounds3/overAllByPounds3)*100;
+
+                        System.out.println("survivors from class "+selectedClass+": "+survivorsFromClass+"%");
+                        //System.out.println("survivors from gender "+selectedGender+": "+survivorsFromGender+"%");
+                        System.out.println("male survivors: "+survivedFromGenderA+"%");
+                        System.out.println("female survivors: "+survivedFromGenderB+"%");
+                        System.out.println("survivors from age 0-10: "+survivorsFromAgeGroup1+"%");
+                        System.out.println("survivors from age 11-20: "+survivorsFromAgeGroup2+"%");
+                        System.out.println("survivors from age 21-30: "+survivorsFromAgeGroup3+"%");
+                        System.out.println("survivors from age 31-40: "+survivorsFromAgeGroup4+"%");
+                        System.out.println("survivors from age 41-50: "+survivorsFromAgeGroup5+"%");
+                        System.out.println("survivors from age 50+: "+survivorsFromAgeGroup6+"%");
+
+                        System.out.println("survivors from port C: "+survivorsFromPortC+"%");
+                        System.out.println("survivors from port Q: "+survivorsFromPortQ+"%");
+                        System.out.println("survivors from port S: "+survivorsFromPortS+"%");
+
+                        System.out.println("survivors by pounds 0-9: "+survivorsByPounds1+"%");
+                        System.out.println("survivors by pounds 11-30: "+survivorsByPounds2+"%");
+                        System.out.println("survivors by pounds 30+: "+survivorsByPounds3+"%");
 
 
                     }
@@ -717,6 +727,9 @@ public class ManageScreen extends JPanel {
 
 
 }
+
+
+
 
 
 
